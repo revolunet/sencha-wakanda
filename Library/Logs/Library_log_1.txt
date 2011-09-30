@@ -1,0 +1,22 @@
+2011-09-29 03:41:48 [com.wakanda-software.Library] INFO - Opening
+2011-09-29 03:41:48 [com.wakanda-software.Library.Library] INFO - Opening
+2011-09-29 03:41:48 [com.wakanda-software.Library.ServerAdmin] INFO - Opening
+2011-09-29 03:41:48 [com.wakanda-software.Library] INFO - Starting
+2011-09-29 03:41:48 [com.wakanda-software.Library.Library] INFO - Starting
+2011-09-29 03:41:48 [com.wakanda-software.Library.ServerAdmin] INFO - Starting
+2011-09-29 03:41:48 [com.wakanda-software.Library] INFO - Running
+2011-09-29 03:43:26 [com.wakanda-software.Library] INFO - Stopping
+2011-09-29 03:43:26 [com.wakanda-software.Library.Library] INFO - Stopping
+2011-09-29 03:43:27 [com.wakanda-software.Library.ServerAdmin] INFO - Stopping
+2011-09-29 03:43:29 [com.wakanda-software.Library] INFO - Closing
+2011-09-29 03:43:29 [com.wakanda-software.Library.Library] INFO - Closing
+2011-09-29 03:43:29 [com.wakanda-software.Library.ServerAdmin] INFO - Closing
+2011-09-29 03:43:38 [com.wakanda-software.Library] INFO - Opening
+2011-09-29 03:43:39 [com.wakanda-software.Library.Library] INFO - Opening
+2011-09-29 03:43:39 [com.wakanda-software.Library.ServerAdmin] INFO - Opening
+2011-09-29 03:43:39 [com.wakanda-software.Library] INFO - Starting
+2011-09-29 03:43:39 [com.wakanda-software.Library.Library] INFO - Starting
+2011-09-29 03:43:39 [com.wakanda-software.Library.ServerAdmin] INFO - Starting
+2011-09-29 03:43:39 [com.wakanda-software.Library] INFO - Running
+2011-09-29 04:01:46 [com.wakanda-software.Library.Library] INFO - Calling JavaScript request handler
+2011-09-29 04:01:46 [com.wakanda-software.Library.Library.JS4D] ERROR - [1] TypeError: 'undefined' is not an object (evaluating 'contentType.indexOf')
