@@ -1,14 +1,2 @@
-﻿<?xml version="1.0" encoding="UTF-8"?><project><file path="./Library.waModel"><tag name="catalog"/>
-    
-  </file><file path="./Library.waSettings"><tag name="settings"/>
-    
-  </file><file path="./Library.waPerm"><tag name="permissions"/>
-    
-  </file><folder path="./WebFolder/"><tag name="webFolder"/>
-    
-  </folder>
-  
-  
-  
-  
-</project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project><folder path="./WebFolder/"><tag name="webFolder"/></folder><file path="./Library.waModel"><tag name="catalog"/></file><file path="./Library.waSettings"><tag name="settings"/></file><file path="./Library.waPerm"><tag name="permissions"/></file></project>
