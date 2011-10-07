@@ -40,3 +40,24 @@
 2011-09-30 16:15:57 [com.wakanda-software.Library.Library] INFO - Starting
 2011-09-30 16:15:57 [com.wakanda-software.Library.ServerAdmin] INFO - Starting
 2011-09-30 16:15:57 [com.wakanda-software.Library] INFO - Running
+2011-10-01 04:53:44 [com.wakanda-software.Library] INFO - Stopping
+2011-10-01 04:53:44 [com.wakanda-software.Library.Library] INFO - Stopping
+2011-10-01 04:53:44 [com.wakanda-software.Library.Library] INFO - Calling JavaScript request handler
+2011-10-01 04:53:44 [com.wakanda-software.Library.Library.JS4D] ERROR - [1] TypeError: 'undefined' is not an object (evaluating 'contentType.indexOf')
+2011-10-01 04:53:45 [com.wakanda-software.Library.ServerAdmin] INFO - Stopping
+2011-10-01 04:53:47 [com.wakanda-software.Library] INFO - Closing
+2011-10-01 04:53:47 [com.wakanda-software.Library.Library] INFO - Closing
+2011-10-01 04:53:48 [com.wakanda-software.Library.ServerAdmin] INFO - Closing
+2011-10-06 19:07:49 [com.wakanda-software.Library] INFO - Opening
+2011-10-06 19:07:49 [com.wakanda-software.Library.Library] INFO - Opening
+2011-10-06 19:07:49 [com.wakanda-software.Library.ServerAdmin] INFO - Opening
+2011-10-06 19:07:49 [com.wakanda-software.Library] INFO - Starting
+2011-10-06 19:07:49 [com.wakanda-software.Library.Library] INFO - Starting
+2011-10-06 19:07:49 [com.wakanda-software.Library.ServerAdmin] INFO - Starting
+2011-10-06 19:07:49 [com.wakanda-software.Library] INFO - Running
+2011-10-06 19:39:35 [com.wakanda-software.Library] INFO - Stopping
+2011-10-06 19:39:35 [com.wakanda-software.Library.Library] INFO - Stopping
+2011-10-06 19:39:36 [com.wakanda-software.Library.ServerAdmin] INFO - Stopping
+2011-10-06 19:39:38 [com.wakanda-software.Library] INFO - Closing
+2011-10-06 19:39:38 [com.wakanda-software.Library.Library] INFO - Closing
+2011-10-06 19:39:38 [com.wakanda-software.Library.ServerAdmin] INFO - Closing

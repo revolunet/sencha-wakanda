@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Recipes template</title>
+</head>
+<body>
+<h1>Recipes template</h1>
+<h2><img src="./preview.png" alt="recipes preview icon" hspace="10" vspace="10" align="right" valign="top"/>level </h2>
+<p>medium</p>
+<h2>Description</h2>
+<p>This template shows how you can create from scratch and run a simple recipes application.</p>
+<!-- p>This project template shows the running results of the tutorial available bellow.</p -->
+<h2>Introduced technologies</h2>
+<ol>
+  <li>Datastore Classes</li>
+  <li>Data Sources and Datagrids</li>
+  <li>Widgets binding</li>
+  <li>Data source onChange entity selection handler</li>
+  <li>Ajax Data Service query</li>
+</ol>
+<!-- h2>Tutorial</h2>
+<h3>Create a blank project</h3>
+<ol>
+  <li>click on the &quot;new project&quot; button (<img src="./readMe/newProject.png" alt="new project button" width="24" height="24" align="absmiddle">)</li>
+  <li>hit the "enter" key to use the default blank project</li>
+  <li>give it a name (ex: &quot;recipes&quot;)</li>
+</ol>
+<p><img src="readMe/create project.png" alt="create a project" width="400" height="291"/></p>
+<p>&nbsp; </p>
+<h3>Create the data Model</h3>
+<ol>
+  <li>click on the "Catalog" button  (<img src="readMe/catalog.png" alt="catalog button" width="24" height="24" align="absmiddle">).<br>
+    <em>It opens the Entity Model editor.</em></li>
+</ol>
+<h4>Create the &quot;ingredient&quot; model</h4>
+<ol>
+  <li>write &quot;ingredient&quot; and hit the &quot;enter&quot; key. <br>
+    <em>It creates the &quot;ingredient&quot; Model with a default &quot;ID&quot; attribute, and give the focus for its second attribute name</em>.</li>
+  <li>write &quot;name&quot;,hit &quot;enter&quot; 3 times<br>
+  <em>It creates the &quot;name&quot; attribute as a string by default</em></li>
+</ol>
+<h4>Create the &quot;recipe&quot; model</h4>
+<ol>
+  <li>create a &quot;recipe&quot; model (click on the &quot;+&quot; icon in the entity model list panel)</li>
+  <li>create the &quot;title&quot; attribute as a string</li>
+  <li>create the &quot;servings&quot; attribute, as a &quot;long&quot;<em><br>
+    (&quot;long&quot; can be autocompleted from &quot;l&quot;)</em></li>
+  <li>create the &quot;directions&quot; attribute as a string</li>
+</ol>
+<h4>Create the &quot;ingredientQuantity&quot; model</h4>
+<ol>
+  <li>create the &quot;ingredientQuantity&quot; model</li>
+  <li>create the &quot;quantity&quot; attribute as a &quot;number&quot; <br>
+  </li>
+  <li>create the &quot;unit&quot; attribute as a &quot;string&quot;</li>
+  <li>create the  &quot;ingredient&quot; attribute as an &quot;ingredient&quot;  </li>
+  <li>create the  &quot;name&quot; attribute as an &quot;ingredient.name&quot;<br>
+    <em>It creates a &quot;flatened&quot; attribute so the &quot;name&quot; of the &quot;ingredient&quot; is directly accessible as a &quot;name&quot; in &quot;ingredientQuantity</em>&quot;</li>
+  <li>add an attribute to the &quot;recipe&quot; model  (click on the &quot;+&quot; icon in the &quot;recipe&quot; model window)</li>
+  <li>name it &quot;ingredients&quot; and set it as &quot;ingredientQuantity[Many]&quot;<br>
+  <em>It will also automatically create a recipe attribute in the &quot;ingredientQuantity&quot; model</em></li>
+</ol>
+<h4>Save  the catalog </h4>
+<ol>
+  <li>close the editor and click &quot;Save&quot; to save the Model.</li>
+</ol>
+<p><img src="readMe/create model.png" alt="create a data model" width="400" height="292"/></p>
+<p>&nbsp;</p>
+<h3>Create the Grafic User Interface</h3>
+<ol>
+  <li>click on the "Main UI" button  (<img src="readMe/main ui.png" alt="main UI button" width="24" height="24" align="absmiddle">).<br>
+  <em>it opens the main interface file (ex: &quot;index.html&quot;) in the GUI Designer</em>.</li>
+</ol>
+<h4>Create the &quot;with ingredients&quot; datagrid</h4>
+<ol>
+  <li>drag and drop the &quot;Grid&quot; widget from the widgets panel to the blank workspace<br>
+  <img src="readMe/grid icon.png" width="166" height="53" alt="datagrid icon">  </li>
+  <li>drag and drop the &quot;ingredient&quot; model from the data source panel to the Grid widget you just created.<br>
+    <em>The grid is automatically binded to your &quot;ingredient&quot; data model.</em></li>
+  <li>double-click on the &quot;ingredient&quot; label on the grid, and write &quot;search recipes with this ingredient:&quot;</li>
+</ol>
+<h4>Create the &quot;recipes&quot; datagrid</h4>
+<ol>
+  <li>drag and drop a &quot;Grid&quot; widget from the widgets panel to the blank workspace<br>
+  </li>
+  <li>drag and drop the &quot;recipe&quot; model from the data source panel to this Grid widget.<br>
+  <em>The grid is automatically binded to your &quot;recipe&quot; data model.</em></li>
+</ol>
+<h4>Create the &quot;directions&quot; text</h4>
+<ol>
+  <li>drag and drop a &quot;Text&quot; widget from the widgets panel to the blank workspace<br>
+    <img src="./readMe/text icon.png" width="71" height="29" alt="text icon"></li>
+  <li>expand the &quot;recipe&quot; data source in the data source panel<br>
+  </li>
+  <li>drag and drop its &quot;directions&quot; attribute  to this &quot;Text&quot; widget<br>
+  <em>This text area is automatically binded to the &quot;directions&quot; attribute of the  selected &quot;recipe&quot;</em></li>
+</ol>
+<h4>Create the &quot;ingredients&quot; datagrid</h4>
+<ol>
+  <li>drag and drop another &quot;Grid&quot; widget from the widgets panel to the blank workspace</li>
+  <li>expand the &quot;recipes&quot; data source in the data source panel<br>
+  </li>
+  <li>from the &quot;recipes&quot; data source in the data source panel, drag and drop its &quot;ingredients&quot; attribute  to the second Grid widget<br>
+    <em>This new grid is automatically binded to the &quot;ingredients&quot; of the selected &quot;recipe&quot;.</em></li>
+</ol>
+<h4>Write the &quot;ingredient&quot; search function</h4>
+<ol>
+  <li>select the first &quot;ingredient&quot; Grid (with the custom label)</li>
+  <li>in the properties panel, choose the &quot;Events&quot; tab</li>
+  <li>click on the &quot;edit&quot; icon (<img src="./readMe/on get.png" alt="on get icon" width="19" height="21" align="absmiddle">) on the &quot;on current entity&quot; event<br>
+  <em>It opens the JavaScript code editor and create a &quot;onCurrentEntity&quot; handler for the &quot;ingredient&quot; grid</em></li>
+  <li>write this code in the body of the function:<br>
+  <em>recipe.query('ingredients.name = &quot;'</em> + ingredient.name + '&quot;');</li>
+</ol>
+<h4>Save  the user interface</h4>
+<ol>
+  <li>close the code editor and click &quot;Save&quot; to save the JavaScript filter.</li>
+  <li>close the designer and click &quot;Save&quot; to save your interface</li>
+</ol>
+<p><img src="readMe/create interface.png" alt="create a graphic user interface" width="400" height="245"/></p>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+<h3>Use the application</h3>
+<ol>
+  <li>click on the &quot;run project&quot;button  (<img src="readMe/runProject.png" alt="run project button" width="24" height="24" align="absmiddle">)</li>
+  <li>use your application application</li>
+</ol>
+</p -->
+<img src="readMe/running application.png" alt="run the application" width="400" height="282"/>
+</body>
+
+</html>

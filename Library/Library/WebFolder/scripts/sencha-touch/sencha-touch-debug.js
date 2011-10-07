@@ -5898,6 +5898,8 @@ Ext.ModelMgr = new Ext.AbstractManager({
             extendModelProto  = extendModel.prototype;
             extendValidations = extendModelProto.validations;
             
+            console.log("pof", extendModelProto);
+            
             proxy              = extendModel.proxy;
             fields             = extendModelProto.fields.items.concat(fields);
             associations       = extendModelProto.associations.items.concat(associations);
