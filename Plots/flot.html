@@ -1,0 +1,84 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Wakanda+Flot Examples</title>
+
+    <script language="javascript" type="text/javascript" src="scripts/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="scripts/jquery.flot.js"></script>
+    <style>
+    body {
+        font-family: Helvetica, Trebuchet Ms, verdana;
+        font-size:22px;
+    }
+    </style>
+
+ </head>
+    <body>
+    <h1>Wakanda real time data plotting</h1>
+
+    <div id="placeholder" style="width:600px;height:300px;"></div>
+    <br><br>
+    <div id="label" style="margin-left:200px;width:200px;text-align:right;display:inline"></div> : <div id="value" style="width:400px;text-align:center;display:inline ">sss</div>
+ 
+<script type="text/javascript">
+    
+    // custom these 2 variables
+    var dataPlotted = 'Pages active';
+    var updateInterval=500;
+
+    var data = [], totalPoints = 1, maxPoints = 25;
+    var min = 0;
+    var max = 100;
+ 
+    function udpateData(newData) {
+ 
+        totalPoints += 1;
+        if (totalPoints>maxPoints) totalPoints=maxPoints;
+        while (data.length < totalPoints) data.unshift( ((max-min)/2) + min);
+        if (newData) {
+            var value = newData.vm_stat[dataPlotted];
+            $('#value').html(''+value);
+            data.push(value);
+        }
+        if (data.length > totalPoints) data = data.slice(1);
+        while (data.length < totalPoints) data.unshift( [data.length, ((max-min)/2) + min]);
+        var res = [];
+        for (var i = 0; i < data.length; ++i)
+            res.push([i, data[i]])
+        return res;
+    }  
+
+    // setup plot
+    var options ={
+        lines: { show: true },
+        points: { show: false },
+        series: { shadowSize: 1 }, // drawing is faster without shadows
+        yaxis: {  show:true },
+        xaxis: {   show: true }
+    };
+
+    var plot = $.plot($("#placeholder"), [udpateData()], options);
+
+    $('#label').html(dataPlotted);
+
+    function update() {
+        $.ajax({
+              url: '/rest/Computer/cpuStats',
+              success: function( data ) {
+                  plot.setData([ udpateData(data.result) ]);
+                  plot.draw();
+                  plot.setupGrid();
+              }
+            });
+        setTimeout(update, updateInterval);
+    }
+
+    update();
+ 
+
+</script>
+
+ </body>
+</html>
