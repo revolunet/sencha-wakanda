@@ -26316,7 +26316,6 @@ Ext.define('Ext.data.proxy.Server', {
     
     
     buildUrl: function(request) {
-        console.log("buildUrl 4", this, arguments);
         var me = this,
             url = me.getUrl(request);
         
@@ -51437,7 +51436,6 @@ Ext.define('Ext.data.proxy.Direct', {
     
     
     buildUrl: function(){
-        console.log("buildUrl 1", this, arguments);
         return '';
     }
 });
@@ -53690,7 +53688,6 @@ Ext.define('Ext.data.proxy.JsonP', {
 
     
     buildUrl: function(request) {
-        console.log("buildUrl 2", this, arguments);
         var me      = this,
             url     = me.callParent(arguments),
             params  = Ext.apply({}, request.params),
@@ -54135,7 +54132,6 @@ Ext.define('Ext.data.proxy.Rest', {
     
     
     buildUrl: function(request) {
-        console.log("buildUrl 3", this, arguments);
         var me        = this,
             operation = request.operation,
             records   = operation.records || [],
