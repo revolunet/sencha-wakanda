@@ -32,12 +32,16 @@ WAF.addWidget({
         // },
         {
             name : 'data-binding',
-            description: 'Source'
-        },
+            description: 'Source',
+            type:'string'
+        }, 
         {
-            name : 'data-groupField',
-            description: 'Group rows by'
+          name : 'data-attribut',
+          description : 'Group by',
+          autocomplete : true,
+          defaultValue: ''
         },
+ 
         {
             name : 'data-paging',
             description: 'Show pager',
@@ -206,8 +210,8 @@ WAF.addWidget({
         };
  
     
-        if (config['data-groupField'] && config['data-groupField']!='') {
-            storeConfig['groupField'] = config['data-groupField'];
+        if (config['data-attribut'] && config['data-attribut']!='') {
+            storeConfig['groupField'] = config['data-attribut'];
         }
 
         console.log('WAK config', config);
@@ -243,10 +247,10 @@ WAF.addWidget({
             extConfig['title'] = config['data-title'];
         }
 
-        if (config['data-groupField'] && config['data-groupField']!='') {
+        if (config['data-attribut'] && config['data-attribut']!='') {
             var groupingFeature = Ext.create('Ext.grid.feature.Grouping', {
                 hideGroupedHeader: true,
-                groupHeaderTpl: 'Company: {name} ({rows.length} Employee{[values.rows.length > 1 ? "s" : ""]})'
+                groupHeaderTpl: config['data-attribut'] + ': {name} ({rows.length} Row{[values.rows.length > 1 ? "s" : ""]})'
             });
             extConfig['features'].push(groupingFeature);
         } 
