@@ -13,6 +13,7 @@ WAF.addWidget({
     lib         : 'WAF',
     description : 'Ext.grid.Panel',
     category    : 'ExtJs',
+    img         : '/walib/WAF/revolunet/extGridPanel/icons/widget-extGridPanel.png',
     tag         : 'div',
     attributes  : [
         {
@@ -44,9 +45,16 @@ WAF.addWidget({
         },
         {
             name : 'data-pagesize',
-            description: 'Rows per page (0=buffered)',
-            defaultValue: 100,
-            hidden: true
+            description: 'Rows per page (or buffer size)',
+            defaultValue: 100 
+
+        },
+        {
+            name : 'data-selectionmodel',
+            description: 'selection model',
+            defaultValue:  'single',
+            type             : 'dropdown',  
+            options        : ['none', 'single', 'multiple'] 
 
         },
         {
@@ -108,10 +116,55 @@ WAF.addWidget({
     },
      events: [
     {
-        name       : 'selectionchange',
-        description: 'OnSelectionChange',
+        name       : 'activate',
+        description: 'activate',
         category   : 'Grid Events'
-    }
+    },
+    {
+        name       : 'afterrender',
+        description: 'afterrender',
+        category   : 'Grid Events'
+    },
+    {
+        name       : 'beforeselect',
+        description: 'beforeselect',
+        category   : 'Row Events'
+    },
+    {
+        name       : 'beforedeselect',
+        description: 'beforedeselect',
+        category   : 'Row Events'
+    },
+    {
+        name       : 'selectionchange',
+        description: 'selectionchange',
+        category   : 'Row Events'
+    },
+    {
+        name       : 'select',
+        description: 'select',
+        category   : 'Row Events'
+    },
+    {
+        name       : 'deselect',
+        description: 'deselect',
+        category   : 'Row Events'
+    },
+    {
+        name       : 'itemdblclick',
+        description: 'itemdblclick',
+        category   : 'Row Events'
+    },
+    {
+        name       : 'itemmouseenter',
+        description: 'itemmouseenter',
+        category   : 'Row Events'
+    },
+    {
+        name       : 'itemmouseleave',
+        description: 'itemmouseleave',
+        category   : 'Row Events'
+    } 
     ],
     columns: {
         attributes : [    
@@ -135,43 +188,55 @@ WAF.addWidget({
     },
     onInit: function (config) {
         
-
-
         // init wakanda models for ExtJs
         var modelList = createWakandaModels();
         var wakandaColumns = Ext.create('Ext.grid.WakandaColumns');
 
         var model = (config['data-binding'].charAt(0).toUpperCase() + config['data-binding'].slice(1));
-
-        console.log(model);
-
+ 
         var storeConfig = {
-            autoLoad: true,
-            autoSync: true,
+            autoLoad: (config['data-paging']=='true' ),
+            autoSync: (config['data-paging']=='true' ),
             model: model,
             remoteSort: true,
             remoteFilter: true,
             pageSize : (parseInt(config['data-pagesize']) || 100),
-            buffered: (config['data-paging']=='false' )
+            buffered: !(config['data-paging']=='true' )
             
         };
+ 
     
         if (config['data-groupField'] && config['data-groupField']!='') {
             storeConfig['groupField'] = config['data-groupField'];
         }
 
+        console.log('WAK config', config);
+        console.log('storeConfig', storeConfig);
+
         var store = Ext.create('Ext.data.Store', storeConfig);
 
         var extConfig = {
             renderTo: config['id'],
-            width: (config['data-width'] ? parseInt(config['data-width']) : 800),
-            height: (config['data-height'] ? parseInt(config['data-height']) : 600),
+            width: (config['data-width'] ? parseInt(config['data-width']) : 600),
+            height: (config['data-height'] ? parseInt(config['data-height']) : 400),
             columns: [],
             store: store,
             features: [],
             forceFit: true,
-            plugins: [wakandaColumns]
+           // selModel:((!config['data-selectionmodel'] || config['data-selectionmodel']=='none')?null:new Ext.selection.RowModel()),
+            
+            loadMask: true,
+            plugins: [wakandaColumns],
+            invalidateScrollerOnRefresh: (config['data-paging']=='true'),
+          
         };
+
+        if ((!config['data-selectionmodel'] || config['data-selectionmodel']=='none')) {
+            extConfig.disableSelection = true;
+        }
+        else if (config['data-selectionmodel']=='multiple') {
+            extConfig.multiSelect = true;
+        }
 
  
         if (config['data-title'] && config['data-title']!='') {
@@ -196,7 +261,8 @@ WAF.addWidget({
         }
         else {
             extConfig.verticalScrollerType = 'paginggridscroller';
-            store.guaranteeRange(0, 199);
+            store.guaranteeRange(0, ((parseInt(config['data-pagesize']) || 100)));
+ 
         }
         
         var grid = new Ext.grid.Panel(extConfig);
@@ -243,20 +309,20 @@ WAF.addWidget({
         // columns
         tgt.children('div:eq(' + rowIndex + ')')
             .css('height', '24px')
-            .css('background-image', 'url(../walib/WAF/widget/extGridPanel/images/columns.png)' );
+            .css('background-image', 'url(../walib/WAF/revolunet/extGridPanel/images/columns.png)' );
         rowIndex += 1;
 
         // contents
         tgt.children('div:eq(' + rowIndex + ')')
             .css('-webkit-box-flex', '2')
-            .css('background-image', 'url(../walib/WAF/widget/extGridPanel/images/extGridPanel.png)' );
+            .css('background-image', 'url(../walib/WAF/revolunet/extGridPanel/images/extGridPanel.png)' );
         rowIndex += 1;
 
         if (config['data-paging'] && config['data-paging']=='true') {
             // pager
             tgt.children('div:eq(' + rowIndex + ')')
                 .css('height', '28px')
-                .css('background-image', 'url(../walib/WAF/widget/extGridPanel/images/paging.png)' );
+                .css('background-image', 'url(../walib/WAF/revolunet/extGridPanel/images/paging.png)' );
             rowIndex += 1;
         }
     }
