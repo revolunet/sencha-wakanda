@@ -41,7 +41,6 @@ WAF.addWidget({
           autocomplete : true,
           defaultValue: ''
         },
- 
         {
             name : 'data-paging',
             description: 'Show pager',
@@ -61,7 +60,18 @@ WAF.addWidget({
             options        : ['none', 'single', 'multiple'] 
 
         },
+        // {
+        //     name : 'data-draggable',
+        //     description: 'Draggable',
+        //     type        : 'checkbox'
+        // },
         {
+            name : 'data-resizable',
+            description: 'Resizable',
+            type        : 'checkbox'
+        }
+        /*
+        ,{
             name       : 'data-columns',
             description: 'Columns',
             type       : 'textarea'
@@ -93,6 +103,7 @@ WAF.addWidget({
             defaultValue: true,
             type: 'checkbox'
         }
+        */
     ],
     style: [
     {
@@ -105,13 +116,13 @@ WAF.addWidget({
     }],
     properties: {
         style: {
-            theme       :  false,
+            theme       : false,
             fClass      : false,
             text        : false,
             background  : false,
             border      : false,
             sizePosition: true,
-            label       : false,
+            label       : true,
             shadow      : false,
             textShadow  : false,
             innerShadow : false,
@@ -191,6 +202,11 @@ WAF.addWidget({
         events: []
     },
     onInit: function (config) {
+        console.log('onInit', arguments)
+
+        var tgt = $('#' + config['id']);
+        tgt.css('position', 'absolute');
+        console.log('DIMS', tgt.position().left, tgt.position().top, tgt.width(), tgt.height());
         
         // init wakanda models for ExtJs
         var modelList = createWakandaModels();
@@ -219,21 +235,32 @@ WAF.addWidget({
 
         var store = Ext.create('Ext.data.Store', storeConfig);
 
+        var tgt = $('#'+config['id']);
+        tgt.html('<div id="' + config['id'] + '_inner" style="widyh:100%;height:100%;"></div>');
+
         var extConfig = {
-            renderTo: config['id'],
-            width: (config['data-width'] ? parseInt(config['data-width']) : 600),
-            height: (config['data-height'] ? parseInt(config['data-height']) : 400),
+            renderTo: config['id']+'_inner',
+            width: ((tgt && tgt.width()) ? tgt.width() : 600),
+            height: ((tgt && tgt.height()) ? tgt.height() : 600),
             columns: [],
             store: store,
             features: [],
             forceFit: true,
-           // selModel:((!config['data-selectionmodel'] || config['data-selectionmodel']=='none')?null:new Ext.selection.RowModel()),
-            
             loadMask: true,
             plugins: [wakandaColumns],
+
             invalidateScrollerOnRefresh: (config['data-paging']=='true'),
           
         };
+
+        if (config['data-draggable']=='true') {
+            extConfig.floating = true;
+            extConfig.draggable = true;
+        }
+        if (config['data-resizable']=='true') {
+            extConfig.resizable = true;
+        }
+
 
         if ((!config['data-selectionmodel'] || config['data-selectionmodel']=='none')) {
             extConfig.disableSelection = true;
@@ -250,7 +277,7 @@ WAF.addWidget({
         if (config['data-attribut'] && config['data-attribut']!='') {
             var groupingFeature = Ext.create('Ext.grid.feature.Grouping', {
                 hideGroupedHeader: true,
-                groupHeaderTpl: config['data-attribut'] + ': {name} ({rows.length} Row{[values.rows.length > 1 ? "s" : ""]})'
+                groupHeaderTpl: config['data-attribut'].toUpperCase() + ': {name} ({rows.length} Row{[values.rows.length > 1 ? "s" : ""]})'
             });
             extConfig['features'].push(groupingFeature);
         } 
@@ -269,11 +296,13 @@ WAF.addWidget({
  
         }
         
+
         var grid = new Ext.grid.Panel(extConfig);
 
         console.log("WAK CONFIG", config);
         console.log("EXT CONFIG", extConfig);
- 
+        
+        
         config.renderId  = grid.getId();
         config.ext = grid;
         return new WAF.widget.extGridPanel(config);
