@@ -10,14 +10,14 @@ Ext.regModel('Book', {
 });
 
 Ext.regModel('Author', {
-    // idProperty: '__KEY',
-    extend: 'wakanda',
-    fields: []
-    // fields: [
-    //     {name: '__KEY', type: 'string'},
-    //     {name: 'name', type: 'string'},
-    //     {name: 'booksCount', type: 'number'}
-    // ],
-    // proxy: {type: 'wakanda'},
-    // hasMany: {model: 'Book', name: 'books', expand: true, foreignKey: 'author'}
+    idProperty: '__KEY',
+    // extend: 'wakanda',
+    // fields: []
+    fields: [
+        {name: '__KEY', type: 'string'},
+        {name: 'name', type: 'string'},
+        {name: 'booksCount', type: 'number'}
+    ],
+    proxy: {type: 'wakanda'},
+    hasMany: {model: 'Book', name: 'books', expand: true, foreignKey: 'author'}
 });
