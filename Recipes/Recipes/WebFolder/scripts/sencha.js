@@ -204,28 +204,33 @@ Ext.onReady(function() {
         }
     });
 
-    window.chartStore = Ext.create('Ext.data.Store', {
-        model: 'cpuStats',
-        listeners: {
-            load: function(store, records) {
-                var data = [], r;
-                for (var i = 0, l = records.length; i < l; i++) {
-                    r = records[i];
-                    // data.push({load: r.get('ioCache'), label: 'cache'});
-                    data.push({load: r.get('ioIdle'), label: 'idle'});
-                    data.push({load: r.get('ioUser'), label: 'user'});
-                    data.push({load: r.get('ioSystem'), label: 'system'});
-                }
-                pieStore.loadData(data);
-                // pieChart.redraw();
-            }
-        }
-    });
+    // window.chartStore = Ext.create('Ext.data.Store', {
+    //     model: 'cpuStats',
+    //     listeners: {
+    //         load: function(store, records) {
+    //             var data = [], r;
+    //             for (var i = 0, l = records.length; i < l; i++) {
+    //                 r = records[i];
+    //                 // data.push({load: r.get('ioCache'), label: 'cache'});
+    //                 data.push({load: r.get('ioIdle'), label: 'idle'});
+    //                 data.push({load: r.get('ioUser'), label: 'user'});
+    //                 data.push({load: r.get('ioSystem'), label: 'system'});
+    //             }
+    //             pieStore.loadData(data);
+    //             // pieChart.redraw();
+    //         }
+    //     }
+    // });
 
     window.pieStore = Ext.create('Ext.data.Store', {
         fields: [
             {name: 'load', type: 'number'},
             {name: 'label', type: 'string'}
+        ],
+        data: [
+            {load: 40, label: 'Idle'},
+            {load: 30, label: 'User'},
+            {load: 10, label: 'System'}
         ]
     });
 
@@ -268,11 +273,11 @@ Ext.onReady(function() {
         renderTo: document.body
     });
 
-    Ext.TaskManager.start({
-        interval: 1000,
-        run: function() {
-            chartStore.load();
-        }
-    });
+    // Ext.TaskManager.start({
+    //     interval: 1000,
+    //     run: function() {
+    //         chartStore.load();
+    //     }
+    // });
 
 });

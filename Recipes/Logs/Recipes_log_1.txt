@@ -174,3 +174,10 @@
 2011-10-10 18:43:49 [com.wakanda-software.Recipes.Recipes] INFO - Starting
 2011-10-10 18:43:49 [com.wakanda-software.Recipes.ServerAdmin] INFO - Starting
 2011-10-10 18:43:49 [com.wakanda-software.Recipes] INFO - Running
+2011-10-15 19:25:32 [com.wakanda-software.Recipes] INFO - Opening
+2011-10-15 19:25:33 [com.wakanda-software.Recipes.Recipes] INFO - Opening
+2011-10-15 19:25:33 [com.wakanda-software.Recipes.ServerAdmin] INFO - Opening
+2011-10-15 19:25:33 [com.wakanda-software.Recipes] INFO - Starting
+2011-10-15 19:25:33 [com.wakanda-software.Recipes.Recipes] INFO - Starting
+2011-10-15 19:25:33 [com.wakanda-software.Recipes.ServerAdmin] INFO - Starting
+2011-10-15 19:25:34 [com.wakanda-software.Recipes] INFO - Running
