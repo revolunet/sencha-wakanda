@@ -1,5 +1,5 @@
 Ext.data.WakandaProxy = Ext.extend(Ext.data.AjaxProxy, {
-    
+
     appendId: true,
 
     actionMethods: {
