@@ -1,0 +1,24 @@
+2011-10-18 11:52:50 [com.wakanda-software.Recipes] INFO - Opening
+2011-10-18 11:52:50 [com.wakanda-software.Recipes.Recipes] INFO - Opening
+2011-10-18 11:52:50 [com.wakanda-software.Recipes.ServerAdmin] INFO - Opening
+2011-10-18 11:52:50 [com.wakanda-software.Recipes] INFO - Starting
+2011-10-18 11:52:50 [com.wakanda-software.Recipes.Recipes] INFO - Starting
+2011-10-18 11:52:51 [com.wakanda-software.Recipes.ServerAdmin] INFO - Starting
+2011-10-18 11:52:51 [com.wakanda-software.Recipes] INFO - Running
+2011-10-18 13:13:57 [com.wakanda-software.Recipes] INFO - Stopping
+2011-10-18 13:13:57 [com.wakanda-software.Recipes.Recipes] INFO - Stopping
+2011-10-18 13:13:58 [com.wakanda-software.Recipes.Recipes.JS4D] ERROR - [1] TypeError: 'null' is not an object (evaluating 'getFolder().path')
+2011-10-18 13:13:58 [com.wakanda-software.Recipes.Recipes.iasv] ERROR - [1054] Cannot post 'applicationWillStop' message to services
+2011-10-18 13:13:58 [com.wakanda-software.Recipes.Recipes.JS4D] ERROR - [1] TypeError: 'null' is not an object (evaluating 'getFolder().path')
+2011-10-18 13:13:58 [com.wakanda-software.Recipes.Recipes.iasv] ERROR - [1054] Cannot post 'httpServerWillStop' message to services
+2011-10-18 13:13:58 [com.wakanda-software.Recipes.ServerAdmin] INFO - Stopping
+2011-10-18 13:14:00 [com.wakanda-software.Recipes] INFO - Closing
+2011-10-18 13:14:00 [com.wakanda-software.Recipes.Recipes] INFO - Closing
+2011-10-18 13:14:01 [com.wakanda-software.Recipes.ServerAdmin] INFO - Closing
+2011-10-18 13:29:44 [com.wakanda-software.Recipes] INFO - Opening
+2011-10-18 13:29:44 [com.wakanda-software.Recipes.Recipes] INFO - Opening
+2011-10-18 13:29:44 [com.wakanda-software.Recipes.ServerAdmin] INFO - Opening
+2011-10-18 13:29:44 [com.wakanda-software.Recipes] INFO - Starting
+2011-10-18 13:29:44 [com.wakanda-software.Recipes.Recipes] INFO - Starting
+2011-10-18 13:29:44 [com.wakanda-software.Recipes.ServerAdmin] INFO - Starting
+2011-10-18 13:29:44 [com.wakanda-software.Recipes] INFO - Running

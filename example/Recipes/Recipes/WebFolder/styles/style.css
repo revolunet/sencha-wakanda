@@ -1,0 +1,13 @@
+.thumb-wrap {
+    float: left;
+    margin: 5px;
+    padding: 4px;
+    border: 1px solid transparent;
+}
+
+.x-item-selected {
+    background: #EFF5FB url("http://docs.sencha.com/ext-js/4-0/extjs/examples/view/selected.gif") no-repeat right bottom;
+    border: 1px solid #99BBE8;
+    padding: 4px;
+    -webkit-box-shadow: 1px 1px 11px -5px #000;
+}
