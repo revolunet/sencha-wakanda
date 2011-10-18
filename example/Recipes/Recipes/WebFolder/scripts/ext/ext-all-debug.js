@@ -26421,10 +26421,11 @@ Ext.define('Ext.data.Model', {
     ],
 
     onClassExtended: function(cls, data) {
-
+        console.log("LIB: onClassExtended", this, arguments, data.fields, cls.prototype.superclass.fields);
         var onBeforeClassCreated = data.onBeforeClassCreated;
 
         data.onBeforeClassCreated = function(cls, data) {
+            console.log("onBeforeClassCreated", this, arguments);
             var me = this,
                 name = Ext.getClassName(cls),
                 prototype = cls.prototype,
