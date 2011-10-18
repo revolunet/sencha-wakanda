@@ -28,7 +28,7 @@ var getWakandaModelsCatalog = function() {
 };
 
 var createWakandaModel = function(model) {
-    
+
     var attributes = model.attributes;
     attributes.push({name: '__KEY'});
     attributes.push({name: '__STAMP'});

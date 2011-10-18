@@ -13954,7 +13954,6 @@ Ext.define('Ext.util.HashMap', {
 
     
     getData: function(key, value) {
-        
         if (value === undefined) {
             value = key;
             key = this.getKey(value);
@@ -25466,14 +25465,12 @@ Ext.define('Ext.data.reader.Reader', {
         me.rawData = data;
 
         data = me.getData(data);
-
-        
         
         var root    = Ext.isArray(data) ? data : me.getRoot(data),
             success = true,
             recordCount = 0,
             total, value, records, message;
-            
+
         if (root) {
             total = root.length;
         }
@@ -26421,11 +26418,9 @@ Ext.define('Ext.data.Model', {
     ],
 
     onClassExtended: function(cls, data) {
-        console.log("LIB: onClassExtended", this, arguments, data.fields, cls.prototype.superclass.fields);
         var onBeforeClassCreated = data.onBeforeClassCreated;
 
         data.onBeforeClassCreated = function(cls, data) {
-            console.log("onBeforeClassCreated", this, arguments);
             var me = this,
                 name = Ext.getClassName(cls),
                 prototype = cls.prototype,
@@ -53808,7 +53803,6 @@ Ext.define('Ext.data.proxy.WebStorage', {
 
     
     read: function(operation, callback, scope) {
-        
 
         var records = [],
             ids     = this.getIds(),
@@ -53907,6 +53901,7 @@ Ext.define('Ext.data.proxy.WebStorage', {
                 fields  = Model.prototype.fields.items,
                 length  = fields.length,
                 i, field, name, record;
+
 
             for (i = 0; i < length; i++) {
                 field = fields[i];

@@ -4,27 +4,18 @@ Ext.define('Ext.data.WakandaModel', {
 
     idProperty: '__KEY',
 
-    proxy: {
-        type: 'wakanda',
-        reader: {
-            type: 'json',
-            idProperty: '__KEY',
-            root: '__ENTITIES',
-            totalProperty: '__COUNT'
-        }
-    },
+    defaultProxyType: 'wakanda',
 
     onClassExtended: function(cls, data) {
-        console.log("onClassExtended", this, arguments);
-        console.log("fields", this.prototype.fields, this.superclass.superclass.fields);
-        var catalog = this.prototype.getCatalog(data.$className);
-        console.log("catalog", catalog);
-        data.fields = catalog.attributes;
+        var catalog = this.prototype.getCatalog(data.$className),
+            attributes = catalog.attributes;
+        attributes.push({name: this.superclass.proxy.reader.idProperty});
+        attributes.push({name: this.superclass.proxy.reader.stampProperty});
+        data.fields = attributes;
         this.superclass.superclass.$onExtended.apply(this, arguments);
     },
 
     getCatalog: function(className) {
-        console.log('getCatalog', this, arguments);
         var catalog;
         Ext.Ajax.request({
             async: false,

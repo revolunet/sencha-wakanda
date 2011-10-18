@@ -14,6 +14,10 @@ Ext.define('Ext.data.proxy.Wakanda', {
 
     limitParam: '$top',
 
+    reader: 'wakanda',
+
+    writer: 'wakanda',
+
     actionMethods: {
         create : 'POST',
         read   : 'GET',
@@ -35,7 +39,7 @@ Ext.define('Ext.data.proxy.Wakanda', {
 
         request.url = url;
 
-        console.log("buildUrl", this, arguments, request.url);
+        // console.log("buildUrl", this, arguments, request.url);
 
         var action  = request.action;
         if (action !== 'read') {
@@ -50,7 +54,6 @@ Ext.define('Ext.data.proxy.Wakanda', {
     },
 
     encodeSorters: function(sorters) {
-        console.log("encodeSorters", this, arguments);
         var min = [],
             length = sorters.length,
             i = 0, sort = '';
@@ -68,7 +71,6 @@ Ext.define('Ext.data.proxy.Wakanda', {
             i = 0, filter = '';
         
         for (; i < length; i++) {
-            console.log("filter", filters[i]);
             filter += filters[i].property + ' eq @' + filters[i].value + '@ ';
         }
         return filter;
