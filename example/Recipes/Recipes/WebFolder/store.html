@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>sencha-wakanda :: store</title>
+    </head>
+
+    <body>
+
+        <script type="text/javascript" src="scripts/ext/ext-all-debug.js"></script>
+
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.writer.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.reader.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.proxy.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.WakandaModel.js"></script>
+
+        <script type="text/javascript">
+
+            Ext.define('Employee', {
+                extend: 'Ext.data.WakandaModel'
+            });
+
+            Ext.onReady(function() {
+
+                var store = Ext.create('Ext.data.Store', {
+                    autoLoad: true,
+                    model: 'Employee'
+                });
+
+                store.on('load', function() {
+                    console.log(store.getCount() + ' employees loaded: ', store.getRange());
+                });
+
+            });
+        </script>
+
+    </body>
+</html>
