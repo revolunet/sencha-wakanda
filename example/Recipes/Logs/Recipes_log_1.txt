@@ -48,3 +48,9 @@
 2011-10-19 00:06:17 [com.wakanda-software.Recipes.Recipes] INFO - Starting
 2011-10-19 00:06:18 [com.wakanda-software.Recipes.ServerAdmin] INFO - Starting
 2011-10-19 00:06:18 [com.wakanda-software.Recipes] INFO - Running
+2011-10-19 00:11:08 [com.wakanda-software.Recipes] INFO - Stopping
+2011-10-19 00:11:08 [com.wakanda-software.Recipes.Recipes] INFO - Stopping
+2011-10-19 00:11:10 [com.wakanda-software.Recipes.ServerAdmin] INFO - Stopping
+2011-10-19 00:11:12 [com.wakanda-software.Recipes] INFO - Closing
+2011-10-19 00:11:12 [com.wakanda-software.Recipes.Recipes] INFO - Closing
+2011-10-19 00:11:12 [com.wakanda-software.Recipes.ServerAdmin] INFO - Closing

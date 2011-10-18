@@ -43,7 +43,7 @@ Ext.define('Ext.data.proxy.Wakanda', {
 
         var action  = request.action;
         if (action !== 'read') {
-            if (action === 'create') action = 'udpate';
+            if (action === 'create') action = 'update';
             url = Ext.urlAppend(url, '&$method=' + action);   
         }
 
