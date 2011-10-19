@@ -6,10 +6,6 @@ Ext.define('Ext.data.reader.Wakanda', {
 
     alias : 'reader.wakanda',
 
-    idProperty: '__KEY',
-
-    stampProperty: '__STAMP',
-
     root: '__ENTITIES',
 
     totalProperty: '__COUNT',

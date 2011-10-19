@@ -4,13 +4,20 @@ Ext.define('Ext.data.WakandaModel', {
 
     idProperty: '__KEY',
 
+    stampProperty: '__STAMP',
+
     defaultProxyType: 'wakanda',
 
     onClassExtended: function(cls, data) {
         var catalog = this.prototype.getCatalog(data.$className),
             attributes = catalog.attributes;
-        attributes.push({name: this.superclass.proxy.reader.idProperty});
-        attributes.push({name: this.superclass.proxy.reader.stampProperty});
+        for (var i = 0, l = attributes.length; i < l; i++) {
+            if (attributes[i].name === 'ID') {
+                attributes[i].persist = false;
+            }
+        }
+        attributes.push({name: this.prototype.idProperty});
+        attributes.push({name: this.prototype.stampProperty});
         data.fields = attributes;
         this.superclass.superclass.$onExtended.apply(this, arguments);
     },

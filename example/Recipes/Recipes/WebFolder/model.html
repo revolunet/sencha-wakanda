@@ -16,6 +16,8 @@
         <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.proxy.Wakanda.js"></script>
         <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.WakandaModel.js"></script>
 
+        <!-- <script type="text/javascript" src="scripts/src.js"></script> -->
+
         <script type="text/javascript">
 
             Ext.define('Employee', {
@@ -26,31 +28,46 @@
 
                 var Employee = Ext.ModelManager.getModel('Employee');
 
-                // load employee (id: 881415)
-                Employee.load(881415, {
+                // load employee (id: 891464)
+                Employee.load(891464, {
                     success: function(employee) {
-                        console.log('employee ' + employee.getId() + ' loaded: ', employee, employee.get('salary'));
+                        console.log('employee ' + employee.getId() + ' loaded: ', 'salary = ' + employee.get('salary'));
 
                         // set employee salary
-                        employee.set('salary', Math.floor(Math.random()*100000));
+                        employee.set('salary', Math.floor(Math.random() * 100000));
 
                         // sync employee
                         employee.save({
                             success: function(employee) {
-                                console.warn('employee ' + employee.getId() + ' updated: ', employee.get('salary'));
+                                console.log('employee ' + employee.getId() + ' updated: ', 'salary = ' + employee.get('salary'));
                             }
                         });
 
                     }
                 });
 
+                // create employee
                 var employee = Ext.create('Employee', {
                     firstName: 'John',
                     lastName: 'Smith',
-                    salary: Math.floor(Math.random()*100000)
+                    salary: Math.floor(Math.random() * 100000)
                 });
+                
+                // sync employee
+                employee.save({
+                    success: function() {
+                        console.log('employee ' + employee.getId() + ' created: ', 'salary = ' + employee.get('salary'));
 
-                employee.save();
+                        var id = employee.getId();
+
+                        // destroy employee
+                        employee.destroy({
+                            success: function() {
+                                console.log('employee ' + id + ' has been destroyed!');
+                            }
+                        });
+                    }
+                });
 
             });
 

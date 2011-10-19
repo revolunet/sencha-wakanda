@@ -31,9 +31,10 @@ Ext.define('Ext.data.proxy.Wakanda', {
             records = operation.records || [],
             record = records[0],
             id = record ? record.getId() : operation.id,
-            url = '/rest/' + modelName;
+            url = '/rest/' + modelName,
+            action  = request.action;
 
-        if (this.appendId && id) {
+        if (this.appendId && id && (action === 'read' || action === 'destroy')) {
             url += '(' + id + ')';
         }
 
@@ -41,10 +42,11 @@ Ext.define('Ext.data.proxy.Wakanda', {
 
         // console.log("buildUrl", this, arguments, request.url);
 
-        var action  = request.action;
+        
         if (action !== 'read') {
             if (action === 'create') action = 'update';
-            url = Ext.urlAppend(url, '&$method=' + action);   
+            else if (action === 'destroy') action = 'delete';
+            url = Ext.urlAppend(url, '$method=' + action);
         }
 
         if (this.noCache) {

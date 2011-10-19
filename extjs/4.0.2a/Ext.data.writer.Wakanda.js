@@ -20,14 +20,18 @@ Ext.define('Ext.data.writer.Wakanda', {
             key;
 
         if (writeAll) {
+            // console.log("getRecordData1", this, arguments);
             fields.each(function(field){
                 if (field.persist) {
                     name = field[nameProperty] || field.name;
                     data[name] = record.get(field.name);
+                } else {
+                    
                 }
             });
         } else {
             changes = record.getChanges();
+            // console.log("getRecordData2", this, arguments, changes);
             for (key in changes) {
                 if (changes.hasOwnProperty(key)) {
                     field = fields.get(key);
@@ -37,8 +41,8 @@ Ext.define('Ext.data.writer.Wakanda', {
             }
             if (!isPhantom) {
                 data[record.idProperty] = record.getId();
+                data[record.stampProperty] = record.get(record.stampProperty);
             }
-            data['__STAMP'] = record.get('__STAMP');
         }
         return {'__ENTITIES': [data]};
     }
