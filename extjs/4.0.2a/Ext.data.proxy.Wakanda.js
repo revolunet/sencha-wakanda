@@ -74,7 +74,7 @@ Ext.define('Ext.data.proxy.Wakanda', {
             i = 0, filter = '';
         
         for (; i < length; i++) {
-            filter += filters[i].property + ' eq @' + filters[i].value + '@ ';
+            filter += filters[i].property + ' eq ' + filters[i].value + '@ ';
         }
         return filter;
     }

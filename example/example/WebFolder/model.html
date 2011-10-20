@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>sencha-wakanda :: model</title>
+        <link rel="stylesheet" href="http://extjs.cachefly.net/ext-4.0.2a/resources/css/ext-all-gray.css" type="text/css" media="screen" charset="utf-8">
+    </head>
+    <body>
+        <script type="text/javascript" src="http://extjs.cachefly.net/ext-4.0.2a/ext-all.js"></script>
+
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.writer.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.reader.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.proxy.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.WakandaModel.js"></script>
+
+        <script type="text/javascript">
+
+            Ext.define('Employee', {
+                extend: 'Ext.data.WakandaModel'
+            });
+
+            Ext.onReady(function() {
+
+                var Employee = Ext.ModelManager.getModel('Employee');
+
+                var form = Ext.create('Ext.form.Panel', {
+                    x: 20,
+                    y: 20,
+                    floating: true,
+                    frame: true,
+                    bodyPadding: 5,
+                    width: 350,
+                    layout: 'anchor',
+                    renderTo: document.body,
+                    defaults: {anchor: '100%'},
+                    defaultType: 'textfield',
+                    items: [{
+                        xtype: 'displayfield',
+                        fieldLabel: 'ID',
+                        name: 'ID'
+                    }, {
+                        fieldLabel: 'First Name',
+                        name: 'firstName',
+                        allowBlank: false
+                    },{
+                        fieldLabel: 'Last Name',
+                        name: 'lastName',
+                        allowBlank: false
+                    }, {
+                        xtype: 'numberfield',
+                        fieldLabel: 'Salary',
+                        name: 'salary'
+                    }],
+                    buttons: [{
+                        text: 'Reset',
+                        handler: function() {
+                            var buttons = this.ownerCt.items;
+                            form.getForm().reset();
+                            buttons.getAt(1).hide();
+                            buttons.getAt(2).show();
+                        }
+                    }, {
+                        text: 'Save',
+                        handler: function() {
+                            if (form.getForm().isValid()) {
+                                var values = form.getValues(),
+                                    employee = form.getRecord();
+
+                                // update employee
+                                employee.set(values);
+                                employee.save({
+                                    success: function(employee) {
+                                        Ext.Msg.alert('Success', 'Employee ' + employee.getId() + ' has been updated!');
+                                    }
+                                });
+                            }
+                        }
+                    }, {
+                        text: 'Create',
+                        hidden: true,
+                        handler: function() {
+                            if (form.getForm().isValid()) {
+                                var values = form.getValues(),
+                                    employee = Ext.create('Employee', values),
+                                    buttons = this.ownerCt.items;
+
+                                // create employee
+                                employee.save({
+                                    success: function(employee) {
+                                        form.loadRecord(employee);
+                                        buttons.getAt(1).show();
+                                        buttons.getAt(2).hide();
+                                        Ext.Msg.alert('Success', 'Employee ' + employee.getId() + ' has been created!');
+                                    }
+                                });
+                            }
+                        }
+                    }]
+                });
+
+                // load employee (id: 3083)
+                Employee.load(3083, {
+                    success: function(employee) {
+                        form.loadRecord(employee);
+                    }
+                });
+
+            });
+
+        </script>
+
+    </body>
+</html>

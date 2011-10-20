@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>sencha-wakanda :: filter</title>
+        <link rel="stylesheet" href="http://extjs.cachefly.net/ext-4.0.2a/resources/css/ext-all-gray.css" type="text/css" media="screen" charset="utf-8">
+    </head>
+    <body>
+        <script type="text/javascript" src="http://extjs.cachefly.net/ext-4.0.2a/ext-all.js"></script>
+
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.writer.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.reader.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.proxy.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.WakandaModel.js"></script>
+
+        <script type="text/javascript">
+
+            Ext.define('Employee', {
+                extend: 'Ext.data.WakandaModel'
+            });
+
+            Ext.onReady(function() {
+
+                var store = Ext.create('Ext.data.Store', {
+                    buffered: true,
+                    remoteSort: true,
+                    remoteFilter: true,
+                    pageSize: 200,
+                    model: 'Employee',
+                    sorters: [
+                        {property : 'lastName', direction: 'ASC'}
+                    ]
+                });
+
+                var toolbar = Ext.create('Ext.Toolbar', {
+                    items: [{
+                        tpl: 'Total: {total}'
+                    }, '->', {
+                        width: 200,
+                        xtype: 'textfield',
+                        emptyText: 'filter by last name...',
+                        listeners: {
+                            change: {buffer: 500, fn: function(field, value) {
+                                if (value.length) {
+                                    store.filters.clear();
+                                    store.filter({property: 'lastName', value: value});
+                                } else {
+                                    store.clearFilter(true);
+                                }
+                            }}
+                        }
+                    }]
+                });
+
+                var grid = Ext.create('Ext.grid.Panel', {
+                    x: 20,
+                    y: 20,
+                    width: 500,
+                    height: 300,
+                    frame: true,
+                    floating: true,
+                    store: store,
+                    bbar: toolbar,
+                    renderTo: document.body,
+                    verticalScrollerType: 'paginggridscroller',
+                    loadMask: true,
+                    disableSelection: true,
+                    invalidateScrollerOnRefresh: false,
+                    viewConfig: {trackOver: false},
+                    columns: [
+                        {xtype: 'rownumberer', width: 40, sortable: false},
+                        {dataIndex: 'lastName', header: 'Last name', field: {xtype: 'textfield'}},
+                        {dataIndex: 'firstName', header: 'First name', field: {xtype: 'textfield'}},
+                        {dataIndex: 'salary', header: 'Salary', renderer: Ext.util.Format.usMoney, field: {xtype: 'textfield'}},
+                        {dataIndex: 'companyName', header: 'Company', flex: 1}
+                    ]
+                });
+
+                store.on('load', function() {
+                    toolbar.items.first().update({total: store.getTotalCount()});
+                });
+
+                store.guaranteeRange(0, 199);
+
+            });
+        </script>
+
+    </body>
+</html>

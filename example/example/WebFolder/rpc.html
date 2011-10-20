@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>sencha-wakanda :: chart</title>
+        <link rel="stylesheet" href="http://extjs.cachefly.net/ext-4.0.2a/resources/css/ext-all-gray.css" type="text/css" media="screen" charset="utf-8">
+    </head>
+    <body>
+        <script type="text/javascript" src="http://extjs.cachefly.net/ext-4.0.2a/ext-all.js"></script>
+
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.writer.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.reader.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.proxy.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.WakandaModel.js"></script>
+
+        <script type="text/javascript">
+
+            var results = [],
+                startDate = +(new Date());
+
+            Ext.onReady(function() {
+
+                var updateData = function(data) {
+                    var timeAxis = chart.axes.get(1),
+                        min, max = Math.ceil((data[0].date - startDate)/1000);
+
+                    if (max > 20) {
+                        var records = [];
+                        store.each(function(record) {
+                            if (record.get('date') < max - 20) {
+                                records.push(record);
+                            }
+                        });
+                        store.remove(records);
+                        timeAxis.maximum = max;
+                    }
+
+                    if (store.getCount()) {
+                        min = store.first().get('date');
+                    } else {
+                        min = max;
+                    }
+
+                    timeAxis.minimum = min;
+                    store.loadData(data, true);
+                };
+
+                var store = Ext.create('Ext.data.Store', {
+                    fields: [
+                        {name: 'pages_free', convert: function(v) {return v*2.6;}},
+                        {name: 'pages_active'},
+                        {name: 'pages_copy_on_write', convert: function(v) {return v/2.5;}},
+                        {name: 'date', convert: function(v) {return Math.ceil((v - startDate)/1000);}}
+                    ]
+                });
+
+                var chart = Ext.create('Ext.chart.Chart', {
+                    style: 'background:#fff',
+                    store: store,
+                    animate: true,
+                    shadow: false,
+                    insetPadding: 20,
+                    legend: {position: 'bottom'},
+                    axes: [{
+                        type: 'Numeric',
+                        grid: true,
+                        position: 'left',
+                        adjustMaximumByMajorUnit: true,
+                        adjustMinimumByMajorUnit: true,
+                        fields: ['pages_active', 'pages_copy_on_write', 'pages_free'],
+                        title: 'Number of Pages'
+                    }, {
+                        type: 'Numeric',
+                        position: 'bottom',
+                        fields: 'date',
+                        title: 'Time',
+                        decimals: 0,
+                        majorTickSteps: 3,
+                        minimum: 0,
+                        maximum: 20,
+                        label: {
+                            renderer: function(v) {return Math.ceil(v) + 's';}
+                        }
+                    }],
+                    series: [{
+                        type: 'line',
+                        axis: 'left',
+                        fill: true,
+                        smooth: true,
+                        xField: 'date',
+                        yField: 'pages_active',
+                        style: {
+                            fill: '#18428E',
+                            stroke: '#18428E',
+                            'stroke-width': 3
+                        },
+                        markerConfig: {
+                            type: 'circle',
+                            size: 3,
+                            radius: 3,
+                            'stroke-width': 0,
+                            fill: '#18428E',
+                            stroke: '#18428E'
+                        }
+                    }, {
+                        type: 'line',
+                        axis: 'left',
+                        fill: true,
+                        smooth: true,
+                        xField: 'date',
+                        yField: 'pages_copy_on_write',
+                        markerConfig: {
+                            size: 3,
+                            radius: 3,
+                            type: 'cross',
+                            'stroke-width': 0
+                        }
+                    }, {
+                        type: 'line',
+                        axis: 'left',
+                        fill: true,
+                        smooth: true,
+                        xField: 'date',
+                        yField: 'pages_free',
+                        markerConfig: {
+                            size: 3,
+                            'stroke-width': 0
+                        }
+                    }]
+                });
+
+                Ext.create('Ext.Panel', {
+                    x: 20,
+                    y: 20,
+                    width: 700,
+                    height: 500,
+                    frame: true,
+                    layout: 'fit',
+                    floating: true,
+                    renderTo: document.body,
+                    items: chart
+                });
+
+                Ext.TaskManager.start({
+                    interval: 1500,
+                    run: function() {
+                        Ext.Ajax.request({
+                            url: '/rest/Computer/cpuStats',
+                            success: function(response) {
+                                var data = [Ext.decode(response.responseText).result];
+                                updateData(data);
+                            }
+                        });
+                    }
+                });
+
+            });
+
+        </script>
+
+    </body>
+</html>

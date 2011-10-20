@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>sencha-wakanda :: store</title>
+        <link rel="stylesheet" href="http://extjs.cachefly.net/ext-4.0.2a/resources/css/ext-all-gray.css" type="text/css" media="screen" charset="utf-8">
+    </head>
+    <body>
+        <script type="text/javascript" src="http://extjs.cachefly.net/ext-4.0.2a/ext-all.js"></script>
+
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.writer.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.reader.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.proxy.Wakanda.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.WakandaModel.js"></script>
+
+        <script type="text/javascript">
+
+            Ext.define('Employee', {
+                extend: 'Ext.data.WakandaModel'
+            });
+
+            Ext.onReady(function() {
+
+                var store = Ext.create('Ext.data.Store', {
+                    autoLoad: true,
+                    autoSync: true,
+                    remoteSort: true,
+                    model: 'Employee',
+                    sorters: [
+                        {property : 'lastName', direction: 'ASC'}
+                    ]
+                });
+
+                var toolbar = Ext.create('Ext.PagingToolbar', {
+                    store: store,
+                    displayInfo: true,
+                    items:['-', {
+                        text: 'Delete',
+                        disabled: true,
+                        handler: function(btn, pressed) {
+                            var selection = grid.getView().getSelectionModel().getSelection()[0];
+                            if (selection) {
+                                store.remove(selection);
+                            }
+                        }
+                    }]
+                });
+
+                var rowEditing = Ext.create('Ext.grid.plugin.RowEditing');
+
+                var grid = Ext.create('Ext.grid.Panel', {
+                    x: 20,
+                    y: 20,
+                    width: 500,
+                    height: 300,
+                    frame: true,
+                    floating: true,
+                    renderTo: document.body,
+                    store: store,
+                    bbar: toolbar,
+                    plugins: [rowEditing],
+                    columns: [
+                        {dataIndex: 'lastName', header: 'Last name', field: {xtype: 'textfield'}},
+                        {dataIndex: 'firstName', header: 'First name', field: {xtype: 'textfield'}},
+                        {dataIndex: 'salary', header: 'Salary', renderer: Ext.util.Format.usMoney, field: {xtype: 'textfield'}},
+                        {dataIndex: 'companyName', header: 'Company', flex: 1}
+                    ]
+                });
+
+                grid.on('selectionchange', function(selModel, selections) {
+                    toolbar.items.getAt(12).setDisabled(selections.length === 0);
+                });
+
+            });
+        </script>
+
+    </body>
+</html>
