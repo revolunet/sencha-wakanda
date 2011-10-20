@@ -20,6 +20,61 @@
 
             Ext.onReady(function() {
 
+                var destroy = function() {
+                    var buttons = this.ownerCt.items,
+                        employee = form.getRecord();
+                        id = employee.getId();
+
+                    form.getForm().reset();
+                    buttons.getAt(0).hide();
+                    buttons.getAt(3).hide();
+                    buttons.getAt(4).show();
+                    employee.destroy({
+                        success: function() {
+                            Ext.Msg.alert('Success', 'Employee ' + id + ' has been destroyed!');
+                        }
+                    });
+                };
+                
+                var reset = function() {
+                    var buttons = this.ownerCt.items;
+                    form.getForm().reset();
+                    buttons.getAt(3).hide();
+                    buttons.getAt(4).show();
+                };
+
+                var update = function() {
+                    if (form.getForm().isValid()) {
+                        var values = form.getValues(),
+                            employee = form.getRecord();
+
+                        employee.set(values);
+                        employee.save({
+                            success: function(employee) {
+                                Ext.Msg.alert('Success', 'Employee ' + employee.getId() + ' has been updated!');
+                            }
+                        });
+                    }
+                };
+
+                var create = function() {
+                    if (form.getForm().isValid()) {
+                        var values = form.getValues(),
+                            employee = Ext.create('Employee', values),
+                            buttons = this.ownerCt.items;
+
+                        employee.save({
+                            success: function(employee) {
+                                form.loadRecord(employee);
+                                buttons.getAt(0).show();
+                                buttons.getAt(3).show();
+                                buttons.getAt(4).hide();
+                                Ext.Msg.alert('Success', 'Employee ' + employee.getId() + ' has been created!');
+                            }
+                        });
+                    }
+                };
+
                 var Employee = Ext.ModelManager.getModel('Employee');
 
                 var form = Ext.create('Ext.form.Panel', {
@@ -29,6 +84,7 @@
                     frame: true,
                     bodyPadding: 5,
                     width: 350,
+                    buttonAlign: 'left',
                     layout: 'anchor',
                     renderTo: document.body,
                     defaults: {anchor: '100%'},
@@ -51,53 +107,22 @@
                         name: 'salary'
                     }],
                     buttons: [{
+                        text: 'Delete',
+                        hidden: true,
+                        handler: destroy
+                    }, '->', {
                         text: 'Reset',
-                        handler: function() {
-                            var buttons = this.ownerCt.items;
-                            form.getForm().reset();
-                            buttons.getAt(1).hide();
-                            buttons.getAt(2).show();
-                        }
+                        handler: reset
                     }, {
-                        text: 'Save',
-                        handler: function() {
-                            if (form.getForm().isValid()) {
-                                var values = form.getValues(),
-                                    employee = form.getRecord();
-
-                                // update employee
-                                employee.set(values);
-                                employee.save({
-                                    success: function(employee) {
-                                        Ext.Msg.alert('Success', 'Employee ' + employee.getId() + ' has been updated!');
-                                    }
-                                });
-                            }
-                        }
+                        text: 'Update',
+                        handler: update
                     }, {
                         text: 'Create',
                         hidden: true,
-                        handler: function() {
-                            if (form.getForm().isValid()) {
-                                var values = form.getValues(),
-                                    employee = Ext.create('Employee', values),
-                                    buttons = this.ownerCt.items;
-
-                                // create employee
-                                employee.save({
-                                    success: function(employee) {
-                                        form.loadRecord(employee);
-                                        buttons.getAt(1).show();
-                                        buttons.getAt(2).hide();
-                                        Ext.Msg.alert('Success', 'Employee ' + employee.getId() + ' has been created!');
-                                    }
-                                });
-                            }
-                        }
+                        handler: create
                     }]
                 });
 
-                // load employee (id: 3083)
                 Employee.load(3083, {
                     success: function(employee) {
                         form.loadRecord(employee);
