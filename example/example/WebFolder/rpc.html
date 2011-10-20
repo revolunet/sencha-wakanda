@@ -7,19 +7,15 @@
     <body>
         <script type="text/javascript" src="http://extjs.cachefly.net/ext-4.0.2a/ext-all.js"></script>
 
-        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.writer.Wakanda.js"></script>
-        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.reader.Wakanda.js"></script>
-        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.proxy.Wakanda.js"></script>
-        <script type="text/javascript" src="https://raw.github.com/revolunet/sencha-wakanda/master/extjs/4.0.2a/Ext.data.WakandaModel.js"></script>
-
         <script type="text/javascript">
 
             var startDate = +(new Date());
 
             Ext.onReady(function() {
 
-                var updateData = function(data) {
+                var updateData = function(response) {
                     var timeAxis = chart.axes.get(1),
+                        data = Ext.decode(response.responseText).result,
                         min, max = Math.ceil((data[0].date - startDate)/1000);
 
                     if (max > 20) {
@@ -47,10 +43,6 @@
                     fields: [
                         'views', 'visits', 'users',
                         {name: 'date', convert: function(v) {return Math.ceil((v - startDate)/1000);}}
-                        // {name: 'pages_free', convert: function(v) {return v*2.6;}},
-                        // {name: 'pages_active'},
-                        // {name: 'pages_copy_on_write', convert: function(v) {return v/2.5;}},
-                        // {name: 'date', convert: function(v) {return Math.ceil((v - startDate)/1000);}}
                     ]
                 });
 
@@ -67,8 +59,6 @@
                         position: 'left',
                         minimum: 0,
                         maximum: 100,
-                        // adjustMaximumByMajorUnit: true,
-                        // adjustMinimumByMajorUnit: true,
                         fields: ['views', 'visits', 'users'],
                         title: 'Number of Hits'
                     }, {
@@ -148,10 +138,7 @@
                     run: function() {
                         Ext.Ajax.request({
                             url: '/rest/Employee/getHits',
-                            success: function(response) {
-                                var data = Ext.decode(response.responseText).result;
-                                updateData(data);
-                            }
+                            success: updateData
                         });
                     }
                 });
