@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>sencha-wakanda :: chart</title>
+        <title>sencha-wakanda :: rpc</title>
         <link rel="stylesheet" href="http://extjs.cachefly.net/ext-4.0.2a/resources/css/ext-all-gray.css" type="text/css" media="screen" charset="utf-8">
     </head>
     <body>
@@ -14,8 +14,7 @@
 
         <script type="text/javascript">
 
-            var results = [],
-                startDate = +(new Date());
+            var startDate = +(new Date());
 
             Ext.onReady(function() {
 
@@ -46,10 +45,12 @@
 
                 var store = Ext.create('Ext.data.Store', {
                     fields: [
-                        {name: 'pages_free', convert: function(v) {return v*2.6;}},
-                        {name: 'pages_active'},
-                        {name: 'pages_copy_on_write', convert: function(v) {return v/2.5;}},
+                        'views', 'visits', 'users',
                         {name: 'date', convert: function(v) {return Math.ceil((v - startDate)/1000);}}
+                        // {name: 'pages_free', convert: function(v) {return v*2.6;}},
+                        // {name: 'pages_active'},
+                        // {name: 'pages_copy_on_write', convert: function(v) {return v/2.5;}},
+                        // {name: 'date', convert: function(v) {return Math.ceil((v - startDate)/1000);}}
                     ]
                 });
 
@@ -64,10 +65,12 @@
                         type: 'Numeric',
                         grid: true,
                         position: 'left',
-                        adjustMaximumByMajorUnit: true,
-                        adjustMinimumByMajorUnit: true,
-                        fields: ['pages_active', 'pages_copy_on_write', 'pages_free'],
-                        title: 'Number of Pages'
+                        minimum: 0,
+                        maximum: 100,
+                        // adjustMaximumByMajorUnit: true,
+                        // adjustMinimumByMajorUnit: true,
+                        fields: ['views', 'visits', 'users'],
+                        title: 'Number of Hits'
                     }, {
                         type: 'Numeric',
                         position: 'bottom',
@@ -87,7 +90,7 @@
                         fill: true,
                         smooth: true,
                         xField: 'date',
-                        yField: 'pages_active',
+                        yField: 'visits',
                         style: {
                             fill: '#18428E',
                             stroke: '#18428E',
@@ -107,7 +110,7 @@
                         fill: true,
                         smooth: true,
                         xField: 'date',
-                        yField: 'pages_copy_on_write',
+                        yField: 'views',
                         markerConfig: {
                             size: 3,
                             radius: 3,
@@ -120,7 +123,7 @@
                         fill: true,
                         smooth: true,
                         xField: 'date',
-                        yField: 'pages_free',
+                        yField: 'users',
                         markerConfig: {
                             size: 3,
                             'stroke-width': 0
@@ -144,9 +147,9 @@
                     interval: 1500,
                     run: function() {
                         Ext.Ajax.request({
-                            url: '/rest/Computer/cpuStats',
+                            url: '/rest/Employee/getHits',
                             success: function(response) {
-                                var data = [Ext.decode(response.responseText).result];
+                                var data = Ext.decode(response.responseText).result;
                                 updateData(data);
                             }
                         });
