@@ -9,14 +9,14 @@
 
         <script type="text/javascript">
 
-            var startDate = +(new Date());
+            var startDate = new Date();
 
             Ext.onReady(function() {
 
                 var updateData = function(response) {
                     var timeAxis = chart.axes.get(1),
                         data = Ext.decode(response.responseText).result,
-                        min, max = Math.ceil((data[0].date - startDate)/1000);
+                        min, max = Math.ceil((data[0].date - (+startDate))/1000);
 
                     if (max > 20) {
                         var records = [];
@@ -42,7 +42,7 @@
                 var store = Ext.create('Ext.data.Store', {
                     fields: [
                         'views', 'visits', 'users',
-                        {name: 'date', convert: function(v) {return Math.ceil((v - startDate)/1000);}}
+                        {name: 'date', convert: function(v) {return Math.ceil((v - (+startDate))/1000);}}
                     ]
                 });
 
@@ -71,7 +71,10 @@
                         minimum: 0,
                         maximum: 20,
                         label: {
-                            renderer: function(v) {return Math.ceil(v) + 's';}
+                            renderer: function(v) {
+                                var dt = Ext.Date.add(startDate, Ext.Date.SECOND, v);
+                                return Ext.Date.format(dt, 'H:i:s');
+                            }
                         }
                     }],
                     series: [{
