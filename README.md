@@ -9,9 +9,9 @@ Please read the [Wiki page for full details](https://github.com/revolunet/sencha
 
 Folders inside the repo :
 
- - example : sample wakanda project that use Sencha widgets with Wakanda REST resources
-
- - extjs : sencha proxy, reader & writer and WakandaModel source code
+ - `example` : sample wakanda project that use Sencha widgets with Wakanda REST resources
+ - `extjs` : sencha proxy, reader & writer and WakandaModel source code
+ - `resources` : images for the wiki ;)
 
 This is for demo purpose, enjoy, comment and fork :)
 
