@@ -1,15 +1,18 @@
 Sencha + Wakanda demos
 ======
 
-Here is some revolunet team work on Wakanda framework integration with 3rd party libs.
+The revolunet team worked to create a Wakanda proxy for the Sencha frameworks (ExtJS 4 and Sencha Touch 2)
 
-Please read the [Wiki for full details](https://github.com/revolunet/sencha-wakanda/wiki)
+You can now declare and use remote wakanda models as any Sencha model.
+
+Please read the [Wiki page for full details](https://github.com/revolunet/sencha-wakanda/wiki/Wakanda-REST-API-with-ExtJS-4)
+
+Folders inside the repo :
 
  - example : sample wakanda project that use Sencha widgets with Wakanda REST resources
 
  - extjs : sencha proxy, reader & writer and WakandaModel source code
 
- - studio-widgets : Sample files for integrating Sencha widget in the wakanda studio
+This is for demo purpose, enjoy, comment and fork :)
 
 
-This is for demo purpose, enjoy :)
