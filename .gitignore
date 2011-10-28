@@ -4,3 +4,7 @@
 *.waSym
 *.waSymData
 *.waIndx
+*.waPreferences
+*.Match
+*.waBackup
+studio_log*
